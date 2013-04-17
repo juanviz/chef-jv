@@ -1,0 +1,20 @@
+{
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "override_attributes": {
+  },
+  "name": "redis-master",
+  "run_list": [
+    "recipe[set-hostname]",
+    "recipe[gzip]",
+    "recipe[tar]",
+    "recipe[lite-users]",
+    "recipe[redisv2]",
+    "recipe[nagios-nrpe]"
+  ],
+  "default_attributes": {
+  },
+  "description": "Staging environment"
+}

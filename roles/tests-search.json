@@ -1,0 +1,1 @@
+{"env_run_lists":{},"default_attributes":{},"name":"tests-search","run_list":["recipe[node_resolver]","recipe[nagios-nrpe]"],"json_class":"Chef::Role","override_attributes":{},"description":"","chef_type":"role"}

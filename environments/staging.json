@@ -1,0 +1,40 @@
+{
+  "json_class": "Chef::Environment",
+  "chef_type": "environment",
+  "name": "staging",
+  "description": "Stage Environment",
+  "default_attributes": {
+    "component_resolvers": {
+    "balancers": {
+      "yourapp": {
+        "port": "8080",
+        "name": "yourbalancer"
+      },
+    }
+  },
+  "override_attributes": {
+    "mongodb": {
+      "fileserver-databag": "false",
+      "local-fileserver-url": "http://x.x.x.x"
+    },
+    "nagios-nrpe": {
+      "file_source": "/nagios/jv-nrpe-aws-1.0.0.1-1.1.noarch.rpm",
+      "allowed_hosts": "x.x.x.x"
+    },
+    "rabbitmq-server": {
+      "broker_definitions_url": "/lite-env/rabbitmq/rabbitmq_broker_definitions_RC_3.2.json"
+    },    
+    "webserver-frontend": {
+      "mod_proxy": {
+        "reverse": {
+          "Reverse proxy to the ELB configured": [
+            "/",
+            "http://x.x.x.x:8081"
+          ]
+        },
+      },
+    }
+
+  }
+
+}

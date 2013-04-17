@@ -1,0 +1,20 @@
+{
+  "override_attributes": {
+  },
+  "default_attributes": {
+  },
+  "description": "Redis rol created to store the common Lists of post. (With persistence)\r\n                                                                                - At the moment like redis-master role.",
+  "run_list": [
+    "recipe[set-hostname]",
+    "recipe[gzip]",
+    "recipe[tar]",
+    "recipe[lite-users]",
+    "recipe[redisv2]",
+    "recipe[nagios-nrpe]"
+  ],
+  "chef_type": "role",
+  "env_run_lists": {
+  },
+  "json_class": "Chef::Role",
+  "name": "redis-common-list"
+}

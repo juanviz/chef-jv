@@ -1,0 +1,10 @@
+{"id":"apps_users",
+"staging":{"group":"lumata","user":"lumata"},
+"_default":{"group":"lumata","user":"lumata"},
+"production":{"group":"lumata","user":"lumata"},
+"devsony":{"group":"lumata","user":"lumata"},
+"dev":{"group":"lumata","user":"lumata"},
+"stable":{"group":"lumata","user":"lumata"},
+"pm":{"group":"lumata","user":"lumata"},
+"qa":{"group":"lumata","user":"lumata"}
+}

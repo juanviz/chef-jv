@@ -1,0 +1,1 @@
+{"env_run_lists":{},"default_attributes":{},"name":"mysql-server","run_list":["recipe[set-hostname]","recipe[lite-users]","recipe[mysql-server]","recipe[nagios-nrpe]"],"json_class":"Chef::Role","override_attributes":{},"description":"Staging environment","chef_type":"role"}

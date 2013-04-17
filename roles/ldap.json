@@ -1,0 +1,1 @@
+{"env_run_lists":{},"default_attributes":{},"name":"ldap","run_list":["recipe[set-hostname]","recipe[lite-users]","recipe[openldap-client]","recipe[openldap-server]","recipe[nagios-nrpe]"],"json_class":"Chef::Role","override_attributes":{},"description":"role for ldap server","chef_type":"role"}

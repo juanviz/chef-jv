@@ -1,0 +1,1 @@
+{"env_run_lists":{},"default_attributes":{},"name":"solr","run_list":["recipe[gzip]","recipe[tar]","recipe[lite-users]","recipe[java]","recipe[tomcat]","recipe[solr]","recipe[set-hostname]","recipe[nagios-nrpe]"],"json_class":"Chef::Role","override_attributes":{},"description":"solr node bootstrap role","chef_type":"role"}

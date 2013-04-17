@@ -1,0 +1,6 @@
+{
+
+		"id":"url",
+		"staging":"http://x.x.x.x:8080",
+		"_default":"hx.x.x.x:8080"
+}

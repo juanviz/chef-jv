@@ -1,0 +1,1 @@
+{"env_run_lists":{},"default_attributes":{"ulimit_custom_user":"root"},"name":"varnish","run_list":["recipe[tar]","recipe[gzip]","recipe[telnet]","recipe[ulimits]","recipe[lite-users]","recipe[varnish]"],"json_class":"Chef::Role","override_attributes":{},"description":"varnish role","chef_type":"role"}

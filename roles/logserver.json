@@ -1,0 +1,21 @@
+{
+  "run_list": [
+    "recipe[set-hostname]",
+    "recipe[gzip]",
+    "recipe[tar]",
+    "recipe[numactl]",
+    "recipe[lite-users]",
+    "recipe[rsyslog]",
+    "recipe[nagios-nrpe]"
+  ],
+  "json_class": "Chef::Role",
+  "chef_type": "role",
+  "name": "logserver",
+  "env_run_lists": {
+  },
+  "override_attributes": {
+  },
+  "description": "Logserver Role",
+  "default_attributes": {
+  }
+}

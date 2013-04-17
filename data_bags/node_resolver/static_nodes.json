@@ -1,0 +1,24 @@
+{
+	"override_environment":{
+		"staging":{
+			"solr":{
+				"uri":"x.x.x.x",
+				"port":"8080"
+			},
+			"alfresco":{
+				"uri":"x.x.x.x",
+				"port":"8080"
+			},
+		},
+		"default":{
+			"solr":{
+				"uri":"x.x.x.x",
+				"port":"8080"
+			},
+			"alfresco":{
+				"uri":"x.x.x.x",
+				"port":"8080"
+			},
+		},
+		"id":"static_nodes"
+	}

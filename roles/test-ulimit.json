@@ -1,0 +1,1 @@
+{"env_run_lists":{},"default_attributes":{},"name":"test-ulimit","run_list":["recipe[lite-users]","recipe[ulimits]"],"json_class":"Chef::Role","override_attributes":{},"description":"test ulimit","chef_type":"role"}

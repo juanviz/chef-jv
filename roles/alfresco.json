@@ -1,0 +1,1 @@
+{"env_run_lists":{},"default_attributes":{},"name":"alfresco","run_list":["recipe[set-hostname]","recipe[gzip]","recipe[tar]","recipe[lite-users]","recipe[java]","recipe[mysql-client]","recipe[nagios-nrpe]"],"json_class":"Chef::Role","override_attributes":{},"description":"alfresco node bootstrap role","chef_type":"role"}

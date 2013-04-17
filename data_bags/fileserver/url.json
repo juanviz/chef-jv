@@ -1,0 +1,6 @@
+{
+		"id":"url",
+		"staging":"http://x.x.x.x",
+		"_default":"http://x.x.x.x"
+		
+}

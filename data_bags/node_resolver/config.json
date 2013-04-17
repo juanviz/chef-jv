@@ -1,0 +1,16 @@
+{
+	"override_environment":{
+	},
+	"default":{
+		"beanstalk":{"role":"beanstalk"},
+		"rsyslog":{"locator":["rsyslog","server","port"],"role":"logserver"},
+		"redis-master":{"locator":["redis","port"],"role":"redis-master"},
+		"rabbitmq":{"locator":["rabbitmq-server","listen_port"],"role":"rabbitmq"},
+		"logserver":{"role":"logserver"},
+		"mongoconfig":{"role":"mongodb-config"},
+		"varnish":{"locator":["varnish","listen","port"],"role":"varnish"},
+		"mysql":{"locator":["mysql-server","listening","port"],"role":"mysql-server"},
+		"ldap":{"role":"ldap"}
+	},
+	"id":"config"
+}

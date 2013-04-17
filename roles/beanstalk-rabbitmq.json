@@ -1,0 +1,1 @@
+{"env_run_lists":{},"default_attributes":{},"name":"beanstalk-rabbitmq","run_list":["recipe[set-hostname]","recipe[tar]","recipe[lite-users]","recipe[rabbitmq-server]","recipe[beanstalkv2]","recipe[nagios-nrpe]"],"json_class":"Chef::Role","override_attributes":{},"description":"beanstalk role","chef_type":"role"}

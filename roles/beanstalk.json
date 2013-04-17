@@ -1,0 +1,1 @@
+{"env_run_lists":{},"default_attributes":{},"name":"beanstalk","run_list":["recipe[set-hostname]","recipe[tar]","recipe[ulimits]","recipe[lite-users]","recipe[beanstalkv2]","recipe[nagios-nrpe]"],"json_class":"Chef::Role","override_attributes":{},"description":"","chef_type":"role"}
