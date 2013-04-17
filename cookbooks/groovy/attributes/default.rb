@@ -1,0 +1,6 @@
+default['groovy']['tarball_url'] = "http://x.x.x.x/installers/groovy/groovy-1.8.5.tar.gz"
+default['groovy']['libs_tarball_url'] = "http://x.x.x.x/installers/groovy/groovy_1.8.5_lib.tar.gz"
+default['groovy']['home'] = "/opt/jv/groovy"
+default['groovy']['user'] = "jv"
+default['groovy']['group'] = "jv"
+default['groovy']['version'] = "1.8.5"

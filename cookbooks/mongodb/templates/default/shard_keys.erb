@@ -1,0 +1,7 @@
+use admin
+% shard_keys.each do |db , collections|
+	sh.enableSharding("<%=db%>")
+% collections.each do |collection, key|
+	sh.shardCollection("<%=db%>.<%=collection%>", <%=key%>)
+% end	
+% end

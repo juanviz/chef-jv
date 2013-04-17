@@ -1,0 +1,64 @@
+#!/bin/bash
+#
+# chkconfig: 45 92 08
+# description: mongodb control script
+# 
+#
+. /etc/init.d/functions
+
+MONGOS="<%=node['mongodb']['launcher']%>"
+LOG_PATH="<%=node['mongodb']['log']['dir']%>"
+LOG_NAME="<%=node['mongodb']['log']['name']%>"
+CONFIG="<%=@mongos_configmode%>"
+MONGO_USER="<%=node['mongodb']['user']%>"
+RETVAL=0
+
+# Considerations about the variables:
+#  Mongo Service needs to overwrite MONGOD, CONFIG, LOG_NAME, and REP_SET in role definition.
+#  MONGOD pointing to mongos binary, and CONFIG to the config servers hostnames in /etc/hosts.
+
+
+start() {
+
+        echo "Starting mongo..."
+        if [ `whoami` = "$MONGO_USER" ]
+        then
+			$MONGOS $CONFIG --fork --logpath $LOG_PATH/$LOG_NAME --logappend
+        else
+			daemon --user=$MONGO_USER $MONGOS $CONFIG --fork --logpath $LOG_PATH/$LOG_NAME --logappend
+        fi
+        }
+
+stop () {
+        echo "stopping mongo..."
+        PID=`ps ax |grep mongo | grep "$LOG_PATH" | grep -v grep | awk '{print $1}'`
+        kill -15 $PID
+        }
+
+status () {
+        PID=`ps ax | grep mongo | grep "$LOG_PATH" | grep -v grep | awk '{print $1}'`
+        if [ -n "$PID" ]; then
+        echo "mongo_db process (pid $PID) is running"
+                else
+                echo "mongo_db process is stopped"
+        fi
+        }
+
+case "$1" in
+ start)
+  start
+  ;;
+ stop)
+  stop
+  ;;
+ status)
+  status
+  ;;
+ restart)
+  stop
+  start
+  ;;
+ *)
+  echo "usage: $0 (start|stop|status|restart)"
+    ;;
+esac

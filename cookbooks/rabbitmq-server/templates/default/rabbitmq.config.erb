@@ -1,0 +1,6 @@
+[
+  {rabbit,                    [ {tcp_listeners,               [<%=node['rabbitmq-server']['listen_port']%>]},
+                                {collect_statistics_interval, <%=node['rabbitmq-server']['collect_statistics_interval']%>} ] },
+  {rabbitmq_mochiweb, [{listeners, [{mgmt, [{port, <%=node['rabbitmq-server']['mochiweb']['listen_port']%>}]}]}]}
+].
+

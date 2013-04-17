@@ -1,0 +1,88 @@
+#!/bin/bash
+#
+# chkconfig: 45 92 08
+# description: mongodb control script
+# 
+#
+. /etc/init.d/functions
+
+MONGOD="<%=node['mongodb']['launcher']%>"
+DB_PATH="<%=node['mongodb']['fs']['path']%>"
+LOG_PATH="<%=node['mongodb']['log']['dir']%>"
+LOG_NAME="<%=node['mongodb']['log']['name']%>"
+CONFIG="<%=node['mongodb']['config']['mode']%>"
+PORT="<%=node['mongodb']['port']%>"
+MONGO_USER="<%=node['mongodb']['user']%>"
+RETVAL=0
+# REP_SET value depending on the mode defined in the role.
+<%
+case node["mongodb"]["replica-set"]["mode"] 
+ when "db","arbit"
+%>
+REP_SET="--replSet <%=node['mongodb']['replica-set']['name']%> --rest"
+<%
+ else
+%>
+REP_SET=""
+<%
+ end
+%>
+
+# Considerations about the variables for the different mongodb types:
+#
+# 1. Mongo DB uses the default attributes, including the replica-set mode and rest mode 
+#    (REP_SET variable) but:
+#	 a. RS-mode always has to be provided at role level.
+#    b. RS-name will be provided at during creation.
+#
+# 2. Mongo Config needs to overwrite PORT, LOG_NAME, DB_NAME, REP_SET (to "" as it doesn't declare the 
+#    replica-set at launch time) and CONFIG (to "--configsvr") in its role definition.
+#
+# 3. Mongo Arbitrer needs to overwrite LOG_NAME, DB_NAME, and PORT in the role definition. 
+#    It uses REP_SET as on DB launch.
+
+
+start() {
+
+        echo "Starting mongo..."
+        if [ `whoami` = "$MONGO_USER" ]
+        then
+			$MONGOD $CONFIG --dbpath $DB_PATH --fork --logpath $LOG_PATH/$LOG_NAME --logappend $REP_SET --port $PORT
+        else 
+			daemon --user=$MONGO_USER $MONGOD $CONFIG --dbpath $DB_PATH --fork --logpath $LOG_PATH/$LOG_NAME --logappend $REP_SET --port $PORT
+		fi
+        }
+
+stop () {
+        echo "stopping mongo..."
+        PID=`ps ax |grep mongo | grep "$LOG_PATH" | grep -v grep | awk '{print $1}'`
+        kill -15 $PID
+        }
+
+status () {
+        PID=`ps ax | grep mongo | grep "$LOG_PATH" | grep -v grep | awk '{print $1}'`
+        if [ -n "$PID" ]; then
+        echo "mongo_db process (pid $PID) is running"
+                else
+                echo "mongo_db process is stopped"
+        fi
+        }
+
+case "$1" in
+ start)
+  start
+  ;;
+ stop)
+  stop
+  ;;
+ status)
+  status
+  ;;
+ restart)
+  stop
+  start
+  ;;
+ *)
+  echo "usage: $0 (start|stop|status|restart)"
+    ;;
+esac

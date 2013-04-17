@@ -1,0 +1,99 @@
+import std;
+#
+backend default {
+ .host = "<%=@components['alfresco']['uri']%>";
+ .port = "<%=@components['alfresco']['port']%>";
+}
+
+sub vcl_fetch {
+       if (req.request == "PUT" || req.request == "POST"|| req.request == "DELETE") {
+               if (beresp.status == 200) {
+                       if (req.url ~ "add_feed$") {
+                               ban_url("browser_feeds"); #2
+                               ban_url("check_feed_url");#3
+                               ban_url("category_contents");#11
+                               ban_url("directory_categories");#14
+                               ban_url("discovery_categories");#15
+                               ban_url("discovery_category_data");#16
+                               ban_url("get_categories");#17
+                               ban_url("get_category_details");#18
+                               ban_url("get_global_categories");#19
+                               ban_url("signup_packages");#20
+                       } else if (req.url ~ "delete_feed" || req.url ~"feed_to_category$" || req.url ~ "published_feed$" || req.url ~ "update_feed$"){
+                               ban_url("browser_feeds"); #2
+                               ban_url("check_feed_url");#3
+                               ban_url("get_feed_details");#6
+                               ban_url("category_contents");#11
+                               ban_url("directory_categories");#14
+                               ban_url("discovery_categories");#15
+                               ban_url("discovery_category_data");#16
+                               ban_url("get_categories");#17
+                               ban_url("get_category_details");#18
+                               ban_url("get_global_categories");#19
+                               ban_url("signup_packages");#20
+                       } else if (req.url ~ "add_category$" || req.url ~"add_link_category$") {
+                               ban_url("browser_feeds"); #2
+                               ban_url("get_feed_details");#6
+                               ban_url("directory_categories");#14
+                               ban_url("discovery_categories");#15
+                               ban_url("get_categories");#17
+                               ban_url("signup_packages");#20
+                       } else if (req.url ~ "delete_category") {
+                               ban_url("browser_feeds"); #2
+                               ban_url("get_feed_details");#6
+                               ban_url("directory_categories");#14
+                               ban_url("discovery_categories");#15
+                               ban_url("get_categories");#17
+                               ban_url("get_category_details");#18
+                               ban_url("signup_packages");#20
+                     } else if (req.url ~ "add_global_category$") {
+                               ban_url("browser_feeds"); #2
+                               ban_url("get_feed_details");#6
+                               ban_url("directory_categories");#14
+                               ban_url("get_categories");#17
+                       } else if (req.url ~ "delete_global_category") {
+                               ban_url("browser_feeds"); #2
+                               ban_url("get_feed_details");#6
+                               ban_url("directory_categories");#14
+                               ban_url("get_categories");#17
+                               ban_url("get_category_details");#18
+                               ban_url("get_global_categories");#19
+                       } else if (req.url ~ "promoted_feed$" || req.url~ "published_category$" || req.url ~ "update_category_position$") {
+                               ban_url("category_contents");#11
+                               ban_url("directory_categories");#14
+                               ban_url("discovery_categories");#15
+                               ban_url("discovery_category_data");#16
+                               ban_url("get_categories");#17
+                               ban_url("get_category_details");#18
+                               ban_url("signup_packages");#20
+                       } else if (req.url ~ "update_category$") {
+                               ban_url("browser_feeds"); #2
+                               ban_url("get_feed_details");#6
+                               ban_url("category_contents");#11
+                               ban_url("directory_categories");#14
+                               ban_url("discovery_categories");#15
+                               ban_url("discovery_category_data");#16
+                               ban_url("get_categories");#17
+                               ban_url("get_category_details");#18
+                               ban_url("signup_packages");#20
+                       } else if (req.url ~ "update_global_category$") {
+                               ban_url("browser_feeds"); #2
+                               ban_url("get_feed_details");#6
+                               ban_url("category_contents");#11
+                               ban_url("directory_categories");#14
+                               ban_url("discovery_categories");#15
+                               ban_url("discovery_category_data");#16
+                               ban_url("get_categories");#17
+                               ban_url("get_category_details");#18
+                               ban_url("get_global_categories");#19
+                               ban_url("signup_packages");#20
+                       } else if (req.url ~ "add_file$" || req.url ~"delete_file" || req.url ~ "update_file$" || req.url ~"localized_text_version_draft") {
+                               ban_url("localized_text"); #30
+                               ban_url("localized_text_versions"); #31
+                               ban_url("localized_text_version_draft"); #32
+                               ban_url("localized_text_version_history"); #33
+                       }
+               }
+       }
+       return(deliver);
+}
