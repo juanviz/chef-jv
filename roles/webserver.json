@@ -1,7 +1,7 @@
 {
 "env_run_lists":{},
 "default_attributes":{},
-"name":"db",
+"name":"webserver",
 "run_list":["role[base]",
   "recipe[php]",
   "recipe[php::module_mysql]",
