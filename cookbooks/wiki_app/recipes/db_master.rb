@@ -19,11 +19,11 @@ webservers = node['roles'].include?('webserver') ? [{'ipaddress' => 'localhost'}
 
 # Grant mysql privileges for each web server 
 webservers.each do |webserver|
-  ip = webserver['ipaddress']
+  ip = webserver['ec2']['public_hostname']
   ruby_block "add_#{ip}_#{app_name}_permissions" do
     block do
       %x[mysql -u root -p#{mysql_root_pass} -e "GRANT SELECT,INSERT,UPDATE,DELETE \
-        ON #{node[app_name]['db_name']}.* TO '#{node[app_name][:db_user]}'@'#{ip}' IDENTIFIED BY '#{app_secrets[node.chef_environment]['db_pass']}';"]
+        ON #{node[app_name]['db_name']}.* TO '#{node[app_name]['db_user']}'@'#{ip}' IDENTIFIED BY '#{app_secrets[node.chef_environment]['db_pass']}';"]
     end
     not_if "mysql -u root -p#{mysql_root_pass} -e \"SELECT user, host FROM mysql.user\" | \
       grep #{node[app_name]['db_user']} | grep #{ip}"
