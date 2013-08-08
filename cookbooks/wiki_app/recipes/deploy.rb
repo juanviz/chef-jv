@@ -40,6 +40,6 @@ deploy_revision node['wiki_app']['deploy_dir'] do
   # migration_command "php app/console doctrine:migrations:migrate" 
   action :deploy
   restart_command do
-    service "apache2" do action :restart; end
+    service "httpd" do action :restart; end
   end
 end
