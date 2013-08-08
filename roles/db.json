@@ -1,0 +1,10 @@
+{
+"env_run_lists":{},
+"default_attributes":{},
+"name":"db",
+"run_list":["recipe[mysql::server]","recipe[postgresql::server]","role[base]","recipe[wiki_app::db_master]"],
+"json_class":"Chef::Role",
+"override_attributes":{},
+"description":"Staging environment",
+"chef_type":"role"
+}
