@@ -8,7 +8,7 @@
   "recipe[apache2]",
   "recipe[apache2::mod_php5]",
   "recipe[apache2::mod_rewrite]",
-  "recipe[wiki_app::webserver]"
+  "recipe[wiki_app::deploy]"
 ],
 "json_class":"Chef::Role",
 "override_attributes":{},
