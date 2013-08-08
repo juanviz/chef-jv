@@ -6,6 +6,6 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-include_recipe "wiki_app::webserver"
+#include_recipe "wiki_app::webserver"
 
 
