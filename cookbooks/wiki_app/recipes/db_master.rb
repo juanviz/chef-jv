@@ -19,7 +19,7 @@ webservers = node['roles'].include?('webserver') ? [{'ipaddress' => 'localhost'}
 
 # Grant mysql privileges for each web server 
 webservers.each do |webserver|
-  ip = webserver['ec2']['public_hostname']
+  ip = webserver['ec2']['hostname']
   ruby_block "add_#{ip}_#{app_name}_permissions" do
     block do
       %x[mysql -u root -p#{mysql_root_pass} -e "GRANT SELECT,INSERT,UPDATE,DELETE \
