@@ -10,7 +10,7 @@ if node['roles'].include?('db')
   master_db_host = 'localhost'
 else
   results = search(:node, "role:db AND chef_environment:#{node.chef_environment}")
-  master_db_host = results[0]['ipaddress']
+  master_db_host = results[0]['public_hostname']
 end 
 directory "#{app_config['config_dir']}" do
   owner "root"
