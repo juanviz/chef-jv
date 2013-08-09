@@ -1,3 +1,4 @@
+depends "mysql"
 app_name = 'wiki_app'
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", app_name) 
 
