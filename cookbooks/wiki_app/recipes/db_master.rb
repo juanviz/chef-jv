@@ -1,3 +1,4 @@
+#include_recipe "mysql::server"
 #include_recipe "database::mysql"
 app_name = 'wiki_app'
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", app_name) 
@@ -6,11 +7,11 @@ app_secrets = Chef::EncryptedDataBagItem.load("secrets", app_name)
 mysql_secrets = Chef::EncryptedDataBagItem.load("secrets", "mysql")
 mysql_root_pass = mysql_secrets[node.chef_environment]['root'] 
 
-#mysql_connection_info = {
-#  :host => "localhost",
-#  :username => "root",
-#  :password => mysql_secrets[node.chef_environment]['root']
-#}
+mysql_connection_info = {
+  :host => "localhost",
+  :username => "root",
+  :password => mysql_secrets[node.chef_environment]['root']
+}
 
 # Create application database
 ruby_block "create_#{app_name}_db" do
@@ -40,4 +41,13 @@ webservers.each do |webserver|
 #  connection mysql_connection_info
 #  sql "source /var/www/current/wikijv.sql;"
 #end
+# Filling application database
+ruby_block "import_#{app_name}_db" do
+  block do
+    %x[mysql -uroot -p#{mysql_root_pass} -D {node[app_name]['db_name']} < {node[app_name]['seed_file']} ;"]
+  end
+  not_if "mysql -uroot -p#{mysql_root_pass} -D {node[app_name]['db_name']} -e \"SHOW TABLES'\" | grep archive";
+  action :create
+end
+
 end
