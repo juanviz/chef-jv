@@ -51,10 +51,11 @@ webservers.each do |webserver|
 #end
 
 end
+
 ruby_block "import_#{app_name}_db" do
   block do
     %x[mysql -uroot -p#{mysql_root_pass} -D {node[app_name]['db_name']} < {node[app_name]['seed_file']} ;"]
   end
-  not_if "mysql -uroot -p#{mysql_root_pass} -D {node[app_name]['db_name']} -e \"SHOW TABLES'\" | grep archive";
+  not_if "mysql -uroot -p#{mysql_root_pass} -D {node[app_name]['db_name']} -e \"SHOW TABLES\" | grep archive";
   action :create
 end
