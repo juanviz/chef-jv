@@ -39,6 +39,6 @@ webservers.each do |webserver|
 end
 mysql_database "#{node[app_name]['db_name']}" do
   connection mysql_connection_info
-  sql "/tmp/wikijv.sql;"
+  sql "/tmp/wikijv.sql"
 end
 
