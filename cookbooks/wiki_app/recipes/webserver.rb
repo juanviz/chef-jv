@@ -19,7 +19,9 @@ directory "#{app_config['config_dir']}" do
   action :create
   recursive true
 end
-
+link "/etc/httpd/sites-enabled/default.conf do
+  to "/etc/httpd/sites-available/default
+end
 
 template "#{app_config['config_dir']}/LocalSettings.php" do
   source "LocalSettings.php.erb"
