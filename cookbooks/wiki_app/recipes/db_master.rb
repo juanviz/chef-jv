@@ -1,4 +1,4 @@
-include_recipe "database::mysql"
+#include_recipe "database::mysql"
 app_name = 'wiki_app'
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", app_name) 
 
@@ -68,4 +68,5 @@ end
 #  sql { ::File.open("/tmp/wikijv.sql").read }
 #  action :query
 #end
-
+#execute  command "mysql -h #{node[:myface][:database][:host]} -u #{node[:myface][:database][:app][:username]} -p#{node[:myface][:database][:app][:password]} -D #{node[:myface][:database][:dbname]} < #{node[:myface][:database][:seed_file]}"
+#execute 'mysql -u root -p#{mysql_root_pass} -D #{node[app_name]['db_name']} < /tmp/wikijv.sql'
