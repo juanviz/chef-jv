@@ -12,7 +12,7 @@ mysql_connection_info = {
   :password => mysql_secrets[node.chef_environment]['root']
 }
 # Creamos la base de datos
-mysql_database '#{node[app_name]['db_name']}' do
+mysql_database node[:app_name][:db_name] do
   connection mysql_connection_info
   action :create
 end
@@ -50,11 +50,11 @@ webservers = node['roles'].include?('webserver') ? [{'ipaddress' => 'localhost'}
 
 webservers.each do |webserver|
   ip = webserver['ec2']['hostname']
-  mysql_database_user '#{node[app_name]['db_user']}' do
+  mysql_database_user node[:app_name][:db_user] do
   connection mysql_connection_info
-  database_name '#{node[app_name]['db_name']}'
-  host '#{ip}'
-  password '{app_secrets[node.chef_environment]['db_pass']}'
+  database_name node[:app_name][:db_name]
+  host webserver['ec2']['hostname']
+  password app_secrets[:node.chef_environment][:db_pass]
   privileges [:all]
   action :grant
   end
