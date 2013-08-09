@@ -5,10 +5,7 @@
 "run_list":["role[base]",
   "recipe[php]",
   "recipe[php::module_mysql]",
-  "recipe[apache2]",
-  "recipe[apache2::mod_php5]",
-  "recipe[apache2::mod_rewrite]",
-  "recipe[wiki_app::deploy]"
+  "recipe[wiki_app]"
 ],
 "json_class":"Chef::Role",
 "override_attributes":{},
