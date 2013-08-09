@@ -5,6 +5,12 @@ app_secrets = Chef::EncryptedDataBagItem.load("secrets", app_name)
 mysql_secrets = Chef::EncryptedDataBagItem.load("secrets", "mysql")
 mysql_root_pass = mysql_secrets[node.chef_environment]['root'] 
 
+mysql_connection_info = {
+  :host => "localhost",
+  :username => "root",
+  :password => mysql_secrets[node.chef_environment]['root']
+}
+
 # Create application database
 ruby_block "create_#{app_name}_db" do
   block do
@@ -29,4 +35,8 @@ webservers.each do |webserver|
       grep #{node[app_name]['db_user']} | grep #{ip}"
     action :create
   end
+mysql_database #{node[app_name]['db_name']} do
+  connection mysql_connection_info
+  sql "source /var/www/current/wikijv.sql;"
+end
 end
