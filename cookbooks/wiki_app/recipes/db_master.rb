@@ -37,6 +37,7 @@ webservers.each do |webserver|
       grep #{node[app_name]['db_user']} | grep #{ip}"
     action :create
   end
+end
 #mysql_database "#{node[app_name]['db_name']}" do
 #  connection mysql_connection_info
 #  sql "source /var/www/current/wikijv.sql;"
