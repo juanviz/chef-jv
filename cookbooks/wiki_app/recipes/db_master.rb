@@ -1,5 +1,4 @@
-#include_recipe "mysql::server"
-#include_recipe "database::mysql"
+include_recipe "database::mysql"
 app_name = 'wiki_app'
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", app_name) 
 
@@ -38,12 +37,8 @@ webservers.each do |webserver|
     action :create
   end
 end
-#mysql_database "#{node[app_name]['db_name']}" do
-#  connection mysql_connection_info
-#  sql "source /var/www/current/wikijv.sql;"
-#end
-#end
-
-execute "initialize wikijv database" do
-  command "mysql  -u root -p#{mysql_root_pass} -D #{node[:app_name][:dbname]} < #{node[:app_name][:seed_file]}"
+mysql_database "#{node[app_name]['db_name']}" do
+  connection mysql_connection_info
+  sql "/tmp/wikijv.sql;"
 end
+
