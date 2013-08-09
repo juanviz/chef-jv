@@ -37,8 +37,13 @@ webservers.each do |webserver|
     action :create
   end
 end
+#mysql_database "#{node[app_name]['db_name']}" do
+#  connection mysql_connection_info
+#  sql "/tmp/wikijv.sql"
+#end
 mysql_database "#{node[app_name]['db_name']}" do
   connection mysql_connection_info
-  sql "/tmp/wikijv.sql"
+  sql { ::File.open("/tmp/wikijv.sql").read }
+  action :query
 end
 
