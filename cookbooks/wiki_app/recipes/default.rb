@@ -6,6 +6,10 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-#include_recipe "wiki_app::webserver"
+include_recipe "apache2"
+include_recipe "apache2::mod_php5"
+include_recipe "wiki_app::deploy"
+include_recipe "wiki_app::webserver"
+
 
 

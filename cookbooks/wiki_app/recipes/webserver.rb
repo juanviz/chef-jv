@@ -2,8 +2,8 @@ app_name = 'wiki_app'
 app_config = node[app_name]
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", app_name) 
 
-include_recipe "apache2"
-include_recipe "apache2::mod_php5" 
+#include_recipe "apache2"
+#include_recipe "apache2::mod_php5" 
 
 # Determine the master database
 if node['roles'].include?('db')

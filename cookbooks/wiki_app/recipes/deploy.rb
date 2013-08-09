@@ -1,4 +1,3 @@
-include_recipe "wiki_app::webserver" 
 
 # Handle ssh key for git private repo
 secrets = Chef::EncryptedDataBagItem.load("secrets", "wiki_app")
