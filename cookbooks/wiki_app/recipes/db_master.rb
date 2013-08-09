@@ -41,7 +41,7 @@ webservers.each do |webserver|
 #  connection mysql_connection_info
 #  sql "source /var/www/current/wikijv.sql;"
 #end
-end
+#end
 
 execute "initialize wikijv database" do
   command "mysql  -u root -p#{mysql_root_pass} -D #{node[:app_name][:dbname]} < #{node[:app_name][:seed_file]}"
