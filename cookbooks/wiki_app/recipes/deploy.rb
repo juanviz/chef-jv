@@ -34,7 +34,7 @@ deploy_revision node['wiki_app']['deploy_dir'] do
   symlink_before_migrate({}) # Symlinks to add before running db migrations
   purge_before_symlink [] # Directories to delete before adding symlinks
   create_dirs_before_symlink [] # Directories to create before adding symlinks
-  symlinks({"/etc/httpd/sites-available/default" => "/etc/httpd/sites-enabled/default.conf"})
+  symlinks({""})
   # migrate true
   # migration_command "php app/console doctrine:migrations:migrate" 
   action :deploy
