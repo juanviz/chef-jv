@@ -54,4 +54,3 @@ ruby_block "import_#{app_name}_db" do
     %x[mysql -uroot -p#{mysql_root_pass}  #{node[app_name]['db_name']} < /tmp/wikijv.sql;]
   end
   action :create
-end
