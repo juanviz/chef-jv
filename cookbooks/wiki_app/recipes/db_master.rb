@@ -1,4 +1,5 @@
 #include_recipe "database::mysql"
+include "s3_file"
 app_name = 'wiki_app'
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", app_name) 
 
@@ -70,3 +71,13 @@ end
 #end
 #execute  command "mysql -h #{node[:myface][:database][:host]} -u #{node[:myface][:database][:app][:username]} -p#{node[:myface][:database][:app][:password]} -D #{node[:myface][:database][:dbname]} < #{node[:myface][:database][:seed_file]}"
 #execute 'mysql -u root -p#{mysql_root_pass} -D #{node[app_name]['db_name']} < /tmp/wikijv.sql'
+  s3_file "/tmp/wikijv.sql" do
+    	remote_path "wikijv.sql"
+    	bucket "wikijv"
+	aws_access_key_id      "AKIAIQSFEY3CKZHHS2AA"
+	aws_secret_access_key  "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"
+    	owner "ec2-user"
+    	group "ec2-user"
+    	mode "0644"
+    	action :create
+    end
