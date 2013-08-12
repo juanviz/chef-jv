@@ -75,5 +75,10 @@ webservers.each do |webserver|
     	mode "0644"
     	action :create
     end
-execute 'mysql -u root -p#{mysql_root_pass} #{node[:app_name][:db_name]} < /tmp/wikijv.sql'
+ruby_block "import_#{app_name}_db" do
+  block do
+    %x[mysql -uroot -p#{mysql_root_pass} -e #{node[app_name]['db_name']} < /tmp/wikijv.sql;]
+  end
+  action :create
+end
 end
