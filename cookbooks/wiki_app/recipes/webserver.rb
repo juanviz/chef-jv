@@ -6,12 +6,13 @@ app_secrets = Chef::EncryptedDataBagItem.load("secrets", app_name)
 #include_recipe "apache2::mod_php5" 
 
 # Determine the master database
-if node['roles'].include?('db')
-  master_db_host = 'localhost'
-else
-  results = search(:node, "role:db AND chef_environment:#{node.chef_environment}")
-  master_db_host = results[0]['ec2']['public_hostname']
-end 
+#if node['roles'].include?('db')
+#  master_db_host = 'localhost'
+#else
+#  results = search(:node, "role:db AND chef_environment:#{node.chef_environment}")
+#  master_db_host = results[0]['ec2']['public_hostname']
+#end
+master_db_host  = app_config['db_host']
 directory "#{app_config['config_dir']}" do
   owner "root"
   group "root"
