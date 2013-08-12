@@ -1,5 +1,5 @@
 #include_recipe "database::mysql"
-include "s3_file"
+include_recipe "s3_file"
 app_name = 'wiki_app'
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", app_name) 
 
@@ -43,12 +43,6 @@ webservers.each do |webserver|
       grep #{node[app_name]['db_user']} | grep #{ip}"
     action :create
   end
-end
-
-
-
-
-
 #webservers.each do |webserver|
  # ip = webserver['ec2']['hostname']
  # mysql_database_user node[:app_name][:db_user] do
@@ -81,3 +75,4 @@ end
     	mode "0644"
     	action :create
     end
+end
