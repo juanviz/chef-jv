@@ -65,9 +65,9 @@ webservers.each do |webserver|
 #end
 #execute  command "mysql -h #{node[:myface][:database][:host]} -u #{node[:myface][:database][:app][:username]} -p#{node[:myface][:database][:app][:password]} -D #{node[:myface][:database][:dbname]} < #{node[:myface][:database][:seed_file]}"
 #execute 'mysql -u root -p#{mysql_root_pass} -D #{node[app_name]['db_name']} < /tmp/wikijv.sql'
-  s3_file "/tmp/wikijv.sql" do
-    	remote_path "wikijv.sql"
-    	bucket "wikijv"
+  s3_file #{node[app_name]['seed_file'] do
+    	remote_path #{node[app_name]['bucket_file']
+    	bucket #{node[app_name]['bucket']
 	aws_access_key_id      "AKIAIQSFEY3CKZHHS2AA"
 	aws_secret_access_key  "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"
     	owner "ec2-user"
