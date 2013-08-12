@@ -43,29 +43,8 @@ webservers.each do |webserver|
       grep #{node[app_name]['db_user']} | grep #{ip}"
     action :create
   end
-#webservers.each do |webserver|
- # ip = webserver['ec2']['hostname']
- # mysql_database_user node[:app_name][:db_user] do
- # connection mysql_connection_info
- # database_name node[:app_name][:db_name]
- # host webserver['ec2']['hostname']
- # password app_secrets[:node.chef_environment][:db_pass]
- # privileges [:all]
- # action :grant
- # end
-#end
-#mysql_database "#{node[app_name]['db_name']}" do
-#  connection mysql_connection_info
-#  sql "/tmp/wikijv.sql"
-#end
-#mysql_database "#{node[app_name]['db_name']}" do
-#  connection mysql_connection_info
-#  sql { ::File.open("/tmp/wikijv.sql").read }
-#  action :query
-#end
-#execute  command "mysql -h #{node[:myface][:database][:host]} -u #{node[:myface][:database][:app][:username]} -p#{node[:myface][:database][:app][:password]} -D #{node[:myface][:database][:dbname]} < #{node[:myface][:database][:seed_file]}"
-#execute 'mysql -u root -p#{mysql_root_pass} -D #{node[app_name]['db_name']} < /tmp/wikijv.sql'
-  s3_file #{node[app_name]['seed_file'] do
+  
+s3_file #{node[app_name]['seed_file'] do
     	remote_path #{node[app_name]['bucket_file']
     	bucket #{node[app_name]['bucket']
 	aws_access_key_id      "AKIAIQSFEY3CKZHHS2AA"
@@ -80,5 +59,4 @@ ruby_block "import_#{app_name}_db" do
     %x[mysql -uroot -p#{mysql_root_pass}  #{node[app_name]['db_name']} < /tmp/wikijv.sql;]
   end
   action :create
-end
 end
