@@ -2,7 +2,7 @@
 include_recipe "s3_file"
 app_name = 'wiki_app'
 app_secrets = Chef::EncryptedDataBagItem.load("secrets", app_name) 
-
+app_config = node[app_name]
 # Get mysql root password
 mysql_secrets = Chef::EncryptedDataBagItem.load("secrets", "mysql")
 mysql_root_pass = mysql_secrets[node.chef_environment]['root'] 
@@ -12,11 +12,6 @@ mysql_connection_info = {
   :username => "root",
   :password => mysql_secrets[node.chef_environment]['root']
 }
-# Creamos la base de datos
-#mysql_database node[:app_name][:db_name] do
- # connection mysql_connection_info
- # action :create
-#end
 
 
 # Create application database
@@ -44,9 +39,9 @@ webservers.each do |webserver|
     action :create
   end
   
-s3_file #{node[app_name]['seed_file'] do
-    	remote_path node[app_name]['bucket_file']
-    	bucket node[app_name]['bucket']
+s3_file app_config['seed_file'] do
+    	remote_path app_config['bucket_file']
+    	bucket app_config['bucket']
 	aws_access_key_id      "AKIAIQSFEY3CKZHHS2AA"
 	aws_secret_access_key  "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"
     	owner "ec2-user"
