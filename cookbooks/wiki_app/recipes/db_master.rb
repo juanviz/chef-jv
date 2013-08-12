@@ -38,7 +38,7 @@ webservers.each do |webserver|
       grep #{node[app_name]['db_user']} | grep #{ip}"
     action :create
   end
-  
+ end 
 s3_file app_config['seed_file'] do
     	remote_path app_config['bucket_file']
     	bucket app_config['bucket']
@@ -54,3 +54,4 @@ ruby_block "import_#{app_name}_db" do
     %x[mysql -uroot -p#{mysql_root_pass}  #{node[app_name]['db_name']} < /tmp/wikijv.sql;]
   end
   action :create
+end
