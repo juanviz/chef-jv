@@ -75,5 +75,5 @@ webservers.each do |webserver|
     	mode "0644"
     	action :create
     end
-execute 'mysql -u root -p#{mysql_root_pass} -D #{node[app_name][db_name]} < /tmp/wikijv.sql'
+execute 'mysql -u root -p#{mysql_root_pass} #{node[app_name][db_name]} < /tmp/wikijv.sql'
 end
