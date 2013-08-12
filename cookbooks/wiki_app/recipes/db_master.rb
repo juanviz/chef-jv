@@ -25,7 +25,7 @@ ruby_block "create_#{app_name}_db" do
 end
 
 # Get a list of web servers
-#webservers = node['roles'].include?('webserver') ? [{'ipaddress' => 'localhost'}] : search(:node, "role:webserver AND chef_environment:#{node.chef_environment}")
+webservers = node['roles'].include?('webserver') ? [{'ipaddress' => 'localhost'}] : search(:node, "role:webserver AND chef_environment:#{node.chef_environment}")
 
 # Grant mysql privileges for each web server 
 webservers.each do |webserver|
