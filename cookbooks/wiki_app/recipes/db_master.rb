@@ -45,8 +45,8 @@ webservers.each do |webserver|
   end
   
 s3_file #{node[app_name]['seed_file'] do
-    	remote_path #{node[app_name]['bucket_file']
-    	bucket #{node[app_name]['bucket']
+    	remote_path node[app_name]['bucket_file']
+    	bucket node[app_name]['bucket']
 	aws_access_key_id      "AKIAIQSFEY3CKZHHS2AA"
 	aws_secret_access_key  "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"
     	owner "ec2-user"
