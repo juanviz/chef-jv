@@ -25,11 +25,12 @@ ruby_block "create_#{app_name}_db" do
 end
 
 # Get a list of web servers
-webservers = node['roles'].include?('webserver') ? [{'ipaddress' => 'localhost'}] : search(:node, "role:webserver AND chef_environment:#{node.chef_environment}")
+#webservers = node['roles'].include?('webserver') ? [{'ipaddress' => 'localhost'}] : search(:node, "role:webserver AND chef_environment:#{node.chef_environment}")
 
 # Grant mysql privileges for each web server 
-webservers.each do |webserver|
-  ip = webserver['ec2']['public_ipv4']
+#webservers.each do |webserver|
+#  ip = xwebserver['ec2']['public_ipv4']
+ip=node[app_name]['web_host']
   ruby_block "add_#{ip}_#{app_name}_permissions" do
     block do
       %x[mysql -u root -p#{mysql_root_pass} -e "GRANT SELECT,INSERT,UPDATE,DELETE \
@@ -39,7 +40,7 @@ webservers.each do |webserver|
       grep #{node[app_name]['db_user']} | grep #{ip}"
     action :create
   end
- end 
+# end 
 s3_file app_config['seed_file'] do
     	remote_path app_config['bucket_file']
     	bucket app_config['bucket']
