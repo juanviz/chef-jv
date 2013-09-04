@@ -1,3 +1,9 @@
+maintainer       "Juan Vicente Herrera"
+
+maintainer_email "juan.vicente.herrera@gmail.com"
+
+license          "GPL"
+
 chef-jv
 =======
 
