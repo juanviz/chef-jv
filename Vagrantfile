@@ -43,7 +43,7 @@ if (environment_id =~ /^(prod|qa|dev|demo)$/)
       override.ssh.private_key_path = private_key
       
       aws.tags = {
-      'Name' => '#{environment_id}-web'
+      'Name' => "#{environment_id}-web"
     }
     end
     web.vm.provision :chef_client do |chef|
@@ -73,7 +73,7 @@ config.vm.define "#{environment_id}-db" do |db|
       override.ssh.private_key_path = private_key
       aws.elastic_ip = true
         aws.tags = {
-      'Name' => '#{environment_id}-db'
+      'Name' => "#{environment_id}-db"
     }
     end
 
