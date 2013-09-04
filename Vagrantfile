@@ -10,7 +10,7 @@ end
 print "Running Vagrant for environment #{environment_id}\n"
 
 Vagrant.configure("2") do |config|
-config.butcher.knife_config_file = File.expand_path("~/.chef/knife.rb")
+config.butcher.knife_config_file = File.expand_path("knife.rb")
 
 #JV configuration
 access_key_id=@access_key_id
@@ -24,7 +24,7 @@ ssh_username="ec2-user"
 
 # Chef Data #
 chef_server_url = "https://api.opscode.com/organizations/juanvi"
-validation_key_path = "/Users/juanvi/.chef/juanvi-validator-new.pem"
+validation_key_path = File.expand_path("~/.chef/juanvi-validator-new.pem")
 validation_client_name = "juanvi-validator"
 # Chef Data #
 if (environment_id =~ /^(prod|qa|dev|demo)$/)
