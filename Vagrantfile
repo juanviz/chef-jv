@@ -31,7 +31,7 @@ if (environment_id =~ /^(prod|qa|dev|demo)$/)
 # web server #     
  config.vm.define "#{environment_id}-ws" do |web|
     web.vm.box = box
-    web.omnibus.chef_version = "11.6.0"
+ #   web.omnibus.chef_version = "11.6.0"
     web.vm.provider :aws do |aws, override|
       aws.keypair_name = keypair_name
       aws.access_key_id=access_key_id
@@ -61,7 +61,7 @@ if (environment_id =~ /^(prod|qa|dev|demo)$/)
 
 config.vm.define "#{environment_id}-db" do |db|
     db.vm.box = box
-    db.omnibus.chef_version = "11.6.0"
+    #db.omnibus.chef_version = "11.6.0"
     db.vm.provider :aws do |aws, override|
       aws.keypair_name = keypair_name
       aws.access_key_id=access_key_id
