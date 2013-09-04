@@ -29,6 +29,8 @@ deploy_revision node['wiki_app']['deploy_dir'] do
   if secrets["deploy_key"]
     git_ssh_wrapper "#{node['wiki_app']['deploy_dir']}/git-ssh-wrapper" # For private Git repos 
   end
+  #user node['apache']['user']
+  group node['apache']['group']
   enable_submodules true
   shallow_clone false
   symlink_before_migrate({}) # Symlinks to add before running db migrations
