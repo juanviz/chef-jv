@@ -6,16 +6,21 @@ LocalSettings.php variables are filled with values included in encrypted databag
 
 Requirements
 ------------
+
 Cookbooks:
+
 Apache2
+
 MySQL
+
 s3_file
+
 PHP
+
 Database
 
 Attributes
 ----------
-#### wiki_app::default
 <table>
   <tr>
     <th>Key</th>
@@ -46,7 +51,7 @@ Attributes
     <td><tt>['wiki_app']['server_name']</tt></td>
     <td>String</td>
     <td>url of the site used in virtualhost configuration</td>
-    <td><tt>twiki.juanvicenteherrera.es</tt></td>
+    <td><tt>wiki.juanvicenteherrera.es</tt></td>
   </tr>
  <tr>
     <td><tt>['wiki_app']['docroot']</tt></td>
@@ -86,7 +91,7 @@ Attributes
     <td><tt>['wiki_app']['seed_file']</tt></td>
     <td>String</td>
     <td>local path to store the s3 dump in the database server</td>
-    <td><tt>true</tt></td>
+    <td><tt>/tmp/wikijv.sql</tt></td>
   </tr>
 <tr>
     <td><tt>['wiki_app']['bucket']</tt></td>
@@ -113,18 +118,58 @@ Attributes
 Usage
 -----
 #### wiki_app::default
-Just include `wiki_app` in your node's `run_list`:
+
+I suggest create 2 roles:
+
+webserver.json
 
 ```json
 {
-  "name":"my_node",
-  "run_list": [
-    "recipe[wiki_app]"
-  ]
+"env_run_lists":{},
+"default_attributes":{},
+"name":"webserver",
+"run_list":["role[base]",
+  "recipe[php]",
+  "recipe[php::module_mysql]",
+  "recipe[wiki_app]"
+],
+"json_class":"Chef::Role",
+"override_attributes":{},
+"description":"Staging environment",
+"chef_type":"role"
+}
+```
+
+db.json
+
+```json
+{
+"env_run_lists":{},
+"default_attributes":{},
+"name":"db",
+"run_list":["recipe[mysql::server]","role[base]","recipe[wiki_app::db_master]"],
+"json_class":"Chef::Role",
+"override_attributes":{},
+"description":"Staging environment",
+"chef_type":"role"
 }
 
 ```
-ensure change elastic ips of your db instance and your web instance in environment file
+
+Ensure change elastic ips of your db instance and your web instance in environment file:
+
+```json
+{
+"name": "prod",
+"description": "The production environment",
+"override_attributes":{
+"wiki_app": {
+            "db_host": "107.21.114.177",
+	    "web_host": "54.221.195.143"
+        }
+}
+}
+```
 
 Contributing
 ------------
@@ -139,4 +184,11 @@ Contributing
 License and Authors
 -------------------
 Authors: 
+
 Juan Vicente Herrera Ruiz de Alejo @jvicenteherrera
+
+License:
+
+Apache License v2.0 
+
+http://www.apache.org/licenses/GPL-compatibility.html
