@@ -35,6 +35,8 @@ template "#{app_config['config_dir']}/LocalSettings.php" do
       '$wgDBpassword' => app_secrets[node.chef_environment]['db_pass'],
       '$wgDBname' => app_config['db_name'],
       '$wgDBserver' => master_db_host,
-    } 
+    },
+    'wgSecretKey' => app_secrets['wgSecretKey'],
+    'wgUpgradeKey' => app_secrets['wgUpgradeKey'],
   )
 end

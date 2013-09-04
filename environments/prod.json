@@ -3,7 +3,7 @@
 "description": "The production environment",
 "override_attributes":{
 "wiki_app": {
-            "db_host": "54.221.215.91",
+            "db_host": "107.21.114.177",
 	    "web_host": "54.221.230.160"
         }
 }
